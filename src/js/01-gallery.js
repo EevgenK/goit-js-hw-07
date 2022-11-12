@@ -21,20 +21,29 @@ function galleryElMarkup(items) {
     })
     .join("");
 }
+
 const onShowModalClick = (e) => {
   e.preventDefault();
   if (e.target.nodeName !== "IMG") return;
-  const instance = basicLightbox
-    .create(
-      `
+  const instance = basicLightbox.create(
+    `
   <div class="modal">
     <img
     class="modal__image"
     src="${e.target.dataset.source}"
     />
   </div>`
-    )
-    .show();
+  );
+
+  const pictureShow = instance.element().querySelector(".modal");
+  pictureShow.addEventListener("click", instance.close);
+  window.addEventListener("keydown", pictureClose);
+  function pictureClose(e) {
+    if (e.code === "Escape") {
+      instance.close();
+    }
+  }
+  instance.show();
 };
 
 galleryEl.addEventListener("click", onShowModalClick);
