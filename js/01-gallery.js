@@ -41,6 +41,7 @@ const onShowModalClick = (e) => {
   function pictureClose(e) {
     if (e.code === "Escape") {
       instance.close();
+      window.removeEventListener("keydown", pictureClose);
     }
   }
   instance.show();
